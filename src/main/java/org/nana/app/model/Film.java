@@ -48,7 +48,7 @@ public class Film {
     @Column(name = "last_update")
     private Timestamp lastUpdate;
     @Basic
-    @Column(name = "special_features",columnDefinition = "enum('Trailers','Commentaries','Deleted Scenes','Behind the Scenes')" )
+    @Column(name = "special_features",columnDefinition = "set('Trailers','Commentaries','Deleted Scenes','Behind the Scenes')" )
     private Object specialFeatures;
     @Basic
     @Column(name = "fulltext")
