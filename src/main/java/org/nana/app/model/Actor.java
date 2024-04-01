@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name="actor",schema="sakila")
+@Table(name="actor",schema="postgres")
 public class Actor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="film" ,schema="sakila")
+@Table(name="film" ,schema="postgres")
 public class Film {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
