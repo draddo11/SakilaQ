@@ -8,12 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="film" ,schema="postgres")
+@Table(name="film" , schema = "sakila")
 public class Film {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "film_id")
-    private int filmId;
+    private short filmId;
     @Basic
     @Column(name = "title")
     private String title;
@@ -42,32 +42,38 @@ public class Film {
     @Column(name = "replacement_cost")
     private BigDecimal replacementCost;
     @Basic
-    @Column(name = "rating", columnDefinition = " enum( 'G', 'PG','PG-13','R','NC-17')" )
+    @Column(name = "rating", columnDefinition="enum=('G', 'PG', 'PG-13', 'R', 'NC-17')")
     private Object rating;
+    @Basic
+    @Column(name = "special_features", columnDefinition = "set=('Trailers','Commentaries,'Deleted Scenes','Behind the Scenes')")
+    private Object specialFeatures;
     @Basic
     @Column(name = "last_update")
     private Timestamp lastUpdate;
-    @Basic
-    @Column(name = "special_features",columnDefinition = "set('Trailers','Commentaries','Deleted Scenes','Behind the Scenes')" )
-    private Object specialFeatures;
-    @Basic
-    @Column(name = "fulltext")
-    private Object fulltext;
 
-    @ManyToMany(cascade = {
-    CascadeType.ALL})
+
+    @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(
             name="film_actor",
-            joinColumns ={@JoinColumn(name="film_id")},
-            inverseJoinColumns = {@JoinColumn(name ="actor_id")}
+            joinColumns = {@JoinColumn(name= "film_id")},
+            inverseJoinColumns = { @JoinColumn(name= "actor_id")}
     )
-    private List<Actor> actors = new ArrayList<>();
+    public List<Actor> getActors() {
+        return actors;
+    }
 
-    public int getFilmId() {
+    public void setActors(List<Actor> actors) {
+        this.actors = actors;
+    }
+
+
+
+    private List<Actor> actors = new ArrayList<>();
+    public short getFilmId() {
         return filmId;
     }
 
-    public void setFilmId(int filmId) {
+    public void setFilmId(short filmId) {
         this.filmId = filmId;
     }
 
@@ -151,14 +157,6 @@ public class Film {
         this.rating = rating;
     }
 
-    public Timestamp getLastUpdate() {
-        return lastUpdate;
-    }
-
-    public void setLastUpdate(Timestamp lastUpdate) {
-        this.lastUpdate = lastUpdate;
-    }
-
     public Object getSpecialFeatures() {
         return specialFeatures;
     }
@@ -167,12 +165,12 @@ public class Film {
         this.specialFeatures = specialFeatures;
     }
 
-    public Object getFulltext() {
-        return fulltext;
+    public Timestamp getLastUpdate() {
+        return lastUpdate;
     }
 
-    public void setFulltext(Object fulltext) {
-        this.fulltext = fulltext;
+    public void setLastUpdate(Timestamp lastUpdate) {
+        this.lastUpdate = lastUpdate;
     }
 
     @Override
@@ -195,17 +193,16 @@ public class Film {
         if (replacementCost != null ? !replacementCost.equals(film.replacementCost) : film.replacementCost != null)
             return false;
         if (rating != null ? !rating.equals(film.rating) : film.rating != null) return false;
-        if (lastUpdate != null ? !lastUpdate.equals(film.lastUpdate) : film.lastUpdate != null) return false;
         if (specialFeatures != null ? !specialFeatures.equals(film.specialFeatures) : film.specialFeatures != null)
             return false;
-        if (fulltext != null ? !fulltext.equals(film.fulltext) : film.fulltext != null) return false;
+        if (lastUpdate != null ? !lastUpdate.equals(film.lastUpdate) : film.lastUpdate != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = filmId;
+        int result = (int) filmId;
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (releaseYear != null ? releaseYear.hashCode() : 0);
@@ -216,9 +213,8 @@ public class Film {
         result = 31 * result + (length != null ? length.hashCode() : 0);
         result = 31 * result + (replacementCost != null ? replacementCost.hashCode() : 0);
         result = 31 * result + (rating != null ? rating.hashCode() : 0);
-        result = 31 * result + (lastUpdate != null ? lastUpdate.hashCode() : 0);
         result = 31 * result + (specialFeatures != null ? specialFeatures.hashCode() : 0);
-        result = 31 * result + (fulltext != null ? fulltext.hashCode() : 0);
+        result = 31 * result + (lastUpdate != null ? lastUpdate.hashCode() : 0);
         return result;
     }
 }

@@ -7,12 +7,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name="actor",schema="postgres")
+@Table(name="actor" , schema = "sakila")
 public class Actor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "actor_id")
-    private int actorId;
+    private short actorId;
     @Basic
     @Column(name = "first_name")
     private String firstName;
@@ -22,13 +22,24 @@ public class Actor {
     @Basic
     @Column(name = "last_update")
     private Timestamp lastUpdate;
-    @ManyToMany(mappedBy ="actors")
-    private Set<Film> films= new HashSet<>();
-    public int getActorId() {
+
+    @ManyToMany(mappedBy = "actors")
+    private Set<Film> films=new HashSet<>();
+
+    public Set<Film> getFilms() {
+        return films;
+    }
+
+    public void setFilms(Set<Film> films) {
+        this.films = films;
+    }
+
+
+    public short getActorId() {
         return actorId;
     }
 
-    public void setActorId(int actorId) {
+    public void setActorId(short actorId) {
         this.actorId = actorId;
     }
 
@@ -73,18 +84,10 @@ public class Actor {
 
     @Override
     public int hashCode() {
-        int result = actorId;
+        int result = (int) actorId;
         result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + (lastUpdate != null ? lastUpdate.hashCode() : 0);
         return result;
-    }
-
-    public Set<Film> getFilms() {
-        return films;
-    }
-
-    public void setFilms(Set<Film> films) {
-        this.films = films;
     }
 }
