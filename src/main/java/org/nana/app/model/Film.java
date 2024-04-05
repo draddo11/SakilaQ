@@ -51,22 +51,15 @@ public class Film {
     @Column(name = "last_update")
     private Timestamp lastUpdate;
 
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(
+            name="film_actor",
+            joinColumns = { @JoinColumn(name= "film_id") },
+            inverseJoinColumns = { @JoinColumn(name= "actor_id")}
+    )
 
-//    @ManyToMany(cascade = {CascadeType.ALL})
-//    @JoinTable(
-//            name="film_actor",
-//            joinColumns = {@JoinColumn(name= "film_id")},
-//            inverseJoinColumns = { @JoinColumn(name= "actor_id")}
-//    )
-//    public List<Actor> getActors() {
-//        return actors;
-//    }
-//
-//    public void setActors(List<Actor> actors) {
-//        this.actors = actors;
-//    }
 
-   // private List<Actor> actors = new ArrayList<>();
+    private List<Actor> actors = new ArrayList<>();
     public short getFilmId() {
         return filmId;
     }
@@ -214,5 +207,13 @@ public class Film {
         result = 31 * result + (specialFeatures != null ? specialFeatures.hashCode() : 0);
         result = 31 * result + (lastUpdate != null ? lastUpdate.hashCode() : 0);
         return result;
+    }
+
+    public List<Actor> getActors() {
+        return actors;
+    }
+
+    public void setActors(List<Actor> actors) {
+        this.actors = actors;
     }
 }

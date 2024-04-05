@@ -25,19 +25,19 @@ public class Actor {
 
 
 
-//    public Set<Film> getFilms() {
-//        return films;
-//    }
-//
-//    public void setFilms(Set<Film> films) {
-//        this.films = films;
-//    }
-//
-//    @ManyToMany(mappedBy = "actors")
-//    private Set<Film> films=new HashSet<>();
-//    public short getActorId() {
-//        return actorId;
-//    }
+    public Set<Film> getFilms() {
+        return films;
+    }
+
+    public void setFilms(Set<Film> films) {
+        this.films = films;
+    }
+
+    @ManyToMany(mappedBy = "actors")
+    private Set<Film> films=new HashSet<>();
+    public short getActorId() {
+        return actorId;
+    }
 
     public void setActorId(short actorId) {
         this.actorId = actorId;
