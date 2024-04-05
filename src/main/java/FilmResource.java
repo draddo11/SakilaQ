@@ -13,4 +13,11 @@ public class FilmResource {
     public String hello(){
         return "Hello World";
     }
+
+    @GET
+    @Path("/helloWorld2")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String hello2(){
+        return "Hello World 2";
+    }
 }

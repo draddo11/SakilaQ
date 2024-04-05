@@ -21,16 +21,16 @@ public class Film {
     @Column(name = "description")
     private String description;
     @Basic
-    @Column(name = "release_year")
+    @Column(name = "release_year",columnDefinition = "year")
     private Object releaseYear;
     @Basic
-    @Column(name = "language_id")
+    @Column(name = "language_id", columnDefinition = "tinyint")
     private short languageId;
     @Basic
-    @Column(name = "original_language_id")
+    @Column(name = "original_language_id", columnDefinition = "tinyint")
     private Short originalLanguageId;
     @Basic
-    @Column(name = "rental_duration")
+    @Column(name = "rental_duration", columnDefinition = "tinyint")
     private short rentalDuration;
     @Basic
     @Column(name = "rental_rate")
@@ -42,33 +42,31 @@ public class Film {
     @Column(name = "replacement_cost")
     private BigDecimal replacementCost;
     @Basic
-    @Column(name = "rating", columnDefinition="enum=('G', 'PG', 'PG-13', 'R', 'NC-17')")
+    @Column(name = "rating", columnDefinition="enum('G', 'PG', 'PG-13', 'R', 'NC-17')")
     private Object rating;
     @Basic
-    @Column(name = "special_features", columnDefinition = "set=('Trailers','Commentaries,'Deleted Scenes','Behind the Scenes')")
+    @Column(name = "special_features", columnDefinition = "set('Trailers','Commentaries,'Deleted Scenes','Behind the Scenes')")
     private Object specialFeatures;
     @Basic
     @Column(name = "last_update")
     private Timestamp lastUpdate;
 
 
-    @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable(
-            name="film_actor",
-            joinColumns = {@JoinColumn(name= "film_id")},
-            inverseJoinColumns = { @JoinColumn(name= "actor_id")}
-    )
-    public List<Actor> getActors() {
-        return actors;
-    }
+//    @ManyToMany(cascade = {CascadeType.ALL})
+//    @JoinTable(
+//            name="film_actor",
+//            joinColumns = {@JoinColumn(name= "film_id")},
+//            inverseJoinColumns = { @JoinColumn(name= "actor_id")}
+//    )
+//    public List<Actor> getActors() {
+//        return actors;
+//    }
+//
+//    public void setActors(List<Actor> actors) {
+//        this.actors = actors;
+//    }
 
-    public void setActors(List<Actor> actors) {
-        this.actors = actors;
-    }
-
-
-
-    private List<Actor> actors = new ArrayList<>();
+   // private List<Actor> actors = new ArrayList<>();
     public short getFilmId() {
         return filmId;
     }

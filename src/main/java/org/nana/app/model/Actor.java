@@ -7,14 +7,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name="actor" , schema = "sakila")
+@Table(name="actor",schema ="sakila")
 public class Actor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "actor_id")
     private short actorId;
     @Basic
-    @Column(name = "first_name")
+    @Column(name = "first_name", columnDefinition = "string")
     private String firstName;
     @Basic
     @Column(name = "last_name")
@@ -23,21 +23,21 @@ public class Actor {
     @Column(name = "last_update")
     private Timestamp lastUpdate;
 
-    @ManyToMany(mappedBy = "actors")
-    private Set<Film> films=new HashSet<>();
-
-    public Set<Film> getFilms() {
-        return films;
-    }
-
-    public void setFilms(Set<Film> films) {
-        this.films = films;
-    }
 
 
-    public short getActorId() {
-        return actorId;
-    }
+//    public Set<Film> getFilms() {
+//        return films;
+//    }
+//
+//    public void setFilms(Set<Film> films) {
+//        this.films = films;
+//    }
+//
+//    @ManyToMany(mappedBy = "actors")
+//    private Set<Film> films=new HashSet<>();
+//    public short getActorId() {
+//        return actorId;
+//    }
 
     public void setActorId(short actorId) {
         this.actorId = actorId;
