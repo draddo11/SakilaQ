@@ -2,6 +2,7 @@ package org.nana.app.repository;
 
 
 import com.speedment.jpastreamer.application.JPAStreamer;
+import com.speedment.jpastreamer.projection.Projection;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.nana.app.model.Film;
 import org.nana.app.model.Film$;
@@ -23,7 +24,8 @@ public class FilmRepository {
     }
 
     public Stream<Film> paged(long page, short minlength){
-        return jpaStreamer.stream(Film.class)
+        return jpaStreamer.stream(Projection.select(Film$.filmId,
+                        Film$.title ,Film$.length))
                 .filter(Film$.length.greaterThan(minlength))
                 .sorted(Film$.length)
                 .skip(page* PAGE_SIZE)
