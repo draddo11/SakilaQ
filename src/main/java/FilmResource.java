@@ -34,10 +34,10 @@ public class FilmResource {
 
 
     @GET
-    @Path("/pagedFilms/{startsWith}")
+    @Path("/pagedFilms/{startsWith}/{minlength}")
     @Produces(MediaType.TEXT_PLAIN)
-    public String actors(String startsWith){
-        return filmRepository.actors(startsWith)
+    public String actors(String startsWith, short minlength){
+        return filmRepository.actors(startsWith , minlength)
                 .map(f-> String.format("%s (%d min): %s",
                         f.getTitle(),
                         f.getLength(),

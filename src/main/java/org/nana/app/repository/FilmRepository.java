@@ -32,11 +32,11 @@ public class FilmRepository {
                 .limit(PAGE_SIZE);
     }
 
-    public Stream<Film> actors(String startsWith){
+    public Stream<Film> actors(String startsWith, short minlength){
         final StreamConfiguration<Film> sc =
                 StreamConfiguration.of(Film.class).joining(Film$.actors);
         return jpaStreamer.stream(sc)
-                .filter(Film$.title.startsWith(startsWith))
+                .filter(Film$.title.startsWith(startsWith).and(Film$.length.greaterThan(minlength)))
                 .sorted(Film$.length.reversed());
     }
 }
