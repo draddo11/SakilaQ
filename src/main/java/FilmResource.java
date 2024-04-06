@@ -33,4 +33,20 @@ public class FilmResource {
     }
 
 
+    @GET
+    @Path("/pagedFilms/{startsWith}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String actors(String startsWith){
+        return filmRepository.actors(startsWith)
+                .map(f-> String.format("%s (%d min): %s",
+                        f.getTitle(),
+                        f.getLength(),
+                        f.getActors().stream()
+                                .map( a-> String.format("%s %s", a.getFirstName(), a.getLastName()))
+                                .collect(Collectors.joining(""))))
+                .collect(Collectors.joining("/n"));
+
+    }
+
+
 }
