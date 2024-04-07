@@ -44,8 +44,18 @@ public class FilmResource {
                         f.getActors().stream()
                                 .map( a-> String.format("%s %s", a.getFirstName(), a.getLastName()))
                                 .collect(Collectors.joining(""))))
-                .collect(Collectors.joining("/n"));
+                .collect(Collectors.joining("\n"));
 
+    }
+
+    @GET
+    @Path("/update/{minLength}/{rentalRate}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String upddate(short minLength, Float rentalRate){
+        filmRepository.updateRentalRate(minLength, rentalRate);
+        return filmRepository.getFilms(minLength)
+                .map(f-> String.format("%s(%d min)- $%f", f.getTitle(),f.getLength(),f.getRentalRate()))
+                .collect(Collectors.joining("\n"));
     }
 
 

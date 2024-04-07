@@ -41,8 +41,8 @@ public class Film {
     @Column(name = "rental_duration", columnDefinition = "tinyint")
     private short rentalDuration;
     @Basic
-    @Column(name = "rental_rate")
-    private BigDecimal rentalRate;
+    @Column(name = "rental_rate", columnDefinition = "decimal")
+    private Float rentalRate;
     @Basic
     @Column(name = "length")
     private Short length;
@@ -124,11 +124,11 @@ public class Film {
         this.rentalDuration = rentalDuration;
     }
 
-    public BigDecimal getRentalRate() {
+    public Float getRentalRate() {
         return rentalRate;
     }
 
-    public void setRentalRate(BigDecimal rentalRate) {
+    public void setRentalRate(Float rentalRate) {
         this.rentalRate = rentalRate;
     }
 

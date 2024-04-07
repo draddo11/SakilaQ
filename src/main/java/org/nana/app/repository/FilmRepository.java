@@ -23,6 +23,12 @@ public class FilmRepository {
                 .findFirst();
     }
 
+    public Stream<Film> getFilms(short minlength){
+        return jpaStreamer.stream(Film.class)
+                .filter(Film$.length.greaterThan(minlength))
+                .sorted(Film$.length);
+    }
+
     public Stream<Film> paged(long page, short minlength){
         return jpaStreamer.stream(Projection.select(Film$.filmId,
                         Film$.title ,Film$.length))
@@ -38,5 +44,13 @@ public class FilmRepository {
         return jpaStreamer.stream(sc)
                 .filter(Film$.title.startsWith(startsWith).and(Film$.length.greaterThan(minlength)))
                 .sorted(Film$.length.reversed());
+    }
+
+    public void updateRentalRate(short minlenght,Float rentalRate) {
+        jpaStreamer.stream(Film.class)
+                .filter(Film$.length.greaterThan(minlenght))
+                .forEach(f -> {
+                    f.setRentalRate(rentalRate);
+                });
     }
 }
