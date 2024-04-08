@@ -4,6 +4,7 @@ import com.speedment.jpastreamer.application.JPAStreamer;
 import com.speedment.jpastreamer.projection.Projection;
 import com.speedment.jpastreamer.streamconfiguration.StreamConfiguration;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.transaction.Transactional;
 import org.nana.app.model.Film;
 import org.nana.app.model.Film$;
 import jakarta.inject.Inject;
@@ -45,7 +46,7 @@ public class FilmRepository {
                 .filter(Film$.title.startsWith(startsWith).and(Film$.length.greaterThan(minlength)))
                 .sorted(Film$.length.reversed());
     }
-
+    @Transactional
     public void updateRentalRate(short minlenght,Float rentalRate) {
         jpaStreamer.stream(Film.class)
                 .filter(Film$.length.greaterThan(minlenght))

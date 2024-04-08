@@ -30,7 +30,7 @@ public class Film {
     private String description;
     @Basic
     @Column(name = "release_year",columnDefinition = "year")
-    private Object releaseYear;
+    private Integer releaseYear;
     @Basic
     @Column(name = "language_id", columnDefinition = "tinyint")
     private short languageId;
@@ -92,11 +92,11 @@ public class Film {
         this.description = description;
     }
 
-    public Object getReleaseYear() {
+    public Integer getReleaseYear() {
         return releaseYear;
     }
 
-    public void setReleaseYear(Object releaseYear) {
+    public void setReleaseYear(Integer releaseYear) {
         this.releaseYear = releaseYear;
     }
 
